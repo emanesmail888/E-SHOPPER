@@ -164,7 +164,7 @@
           <a class="nav-link" href="{{url('/')}}">Home </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url('products')}}">Shop</a>
+          <a class="nav-link" href="{{url('shop')}}">Shop</a>
         </li>
 
 

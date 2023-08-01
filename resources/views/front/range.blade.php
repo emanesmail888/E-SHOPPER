@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-5 pb-4">
     <h1 class=" text-center text-warning"> Featured <span>products</span> </h1>
 
  <div class="row ">
@@ -96,6 +96,62 @@
 
 
 
+
+
+  <script>
+    $('.slick1').slick({
+
+
+      rows: 2,
+      loop: true,
+
+      responsive: [{
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            dots: true,
+            infinite: true
+
+
+
+
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+
+      ],
+
+
+
+
+
+      dots: true,
+      arrows: true,
+    //   infinite: false,
+      autoplay: true,
+      speed: 300,
+      slidesToShow: 5,
+      slidesToScroll: 2,
+      loop: true
+
+    });
+  </script>
+
+{{--
 <script>
     $('#slick1').slick({
 
@@ -147,7 +203,7 @@ responsive: [{
 		slidesToScroll: 4
 
 });
-</script>
+</script> --}}
 
 
 

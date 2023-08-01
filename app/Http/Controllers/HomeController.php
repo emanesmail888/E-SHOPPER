@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use App\Models\recommends;
 use App\Models\Product;
+use App\Models\ProductReview;
+use Gloudemans\Shoppingcart\Facades\Cart;
+
 use App\Models\Category;
 use App\Models\products_properties;
 use App\Models\SubCategory;
@@ -30,18 +33,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
       */
-    //  public function index()
-    //  {
 
-
-    //      $products=Product::paginate(6);
-    //     $categories=Category::all();
-    //     $subCategories=SubCategory::all();
-    //     return view('front.home',compact(['categories','products','subCategories']));
-
-
-
-    //  }
 
 
      function index(Request $request)
@@ -51,27 +43,22 @@ class HomeController extends Controller
         $products=Product::paginate();
         $categories=Category::all();
         $subCategories=SubCategory::all();
-        if($request->ajax() ){
+        // if($request->ajax() ){
+        //     $start= $request->get(  'start' );
+        //     $end= $request->get( 'end' );
+
+
+        //     $products = DB::table('products')->select('*')
+        //    ->where('pro_price', '>=',  $start)
+        //     ->where( 'pro_price' ,'<=',  $end)->orderBy('pro_price', 'ASC')->paginate();
+
+
+        //   return  view('front.range',compact(['products']));
 
 
 
 
-            $start= $request->get(  'start' );
-            $end= $request->get( 'end' );
-
-
-            $products = DB::table('products')->select('*')
-           ->where('pro_price', '>=',  $start)
-            ->where( 'pro_price' ,'<=',  $end)->orderBy('pro_price', 'ASC')->paginate();
-            // return view('front.range', ['products' => $products])->render();
-
-
-          return  view('front.range',compact(['products']));
-
-
-
-
-        }
+        // }
         return view('front.home',compact(['categories','products','subCategories']));
 
 
@@ -117,20 +104,20 @@ class HomeController extends Controller
 
             $products = DB::table('products')->select('*')
            ->where('pro_price', '>=',  $start)
-            ->where( 'pro_price' ,'<=',  $end)->orderBy('pro_price', 'ASC')->paginate(6);
+            ->where( 'pro_price' ,'<=',  $end)->orderBy('pro_price', 'ASC')->get();
             // return view('front.range', ['products' => $products])->render();
 
 
-          return  view('front.range',compact(['products']))->render();
+          return  view('front.priceRange',compact(['products']));
 
         }
          else{
 
 
-            $products=Product::paginate(6);
+            $products=Product::all();
             $categories=Category::all();
             $subCategories=SubCategory::all();
-            return view('front.home',compact(['categories','products','subCategories']));
+            return view('front.shop',compact(['categories','products','subCategories']));
 
         }
 }
@@ -164,31 +151,9 @@ class HomeController extends Controller
         return view('front.products',compact(['categories','products']));
     }
 }
-// public function showProducts($id)
-//     {
-//         // $subCategories=SubCategory::all();
-//     $subCategory=SubCategory::findOrFail($id);
-//      $categories=Category::all();
-//     $cat_id=$subCategory->category_id;
-//     $products= DB::table('products')
-//     ->where('subCategories_id', $id)
-//     ->where('category_id',$cat_id )->orderBy('spl_price', 'ASC')
-//    -> paginate(3);
-//     return view('front.products', compact(['products','categories']));
-// }
 
 
 
-
-//     public function contact()
-//     {
-//         return view('front.contact');
-//     }
-
-//    public function product_details($id){
-//        $products=Product::findOrFail($id);
-//        return view('front.product_details',compact('products'));
-//    }
 
 
    public function product_details($id)
@@ -196,7 +161,9 @@ class HomeController extends Controller
 
    {
 $products=Product::findOrFail($id);
-$items=Product::all();
+// $items=Product::randomize(3)->get();;
+// "select * from products order by rand() LIMIT 0,3"
+$items=Product::all()->random(4);
     // $products = DB::table('products')->where('id',$id)->get();
 
           // return view('front.product_details', compact('products'));
@@ -207,17 +174,16 @@ $items=Product::all();
        $recommends ->save();
        }
 
-       // $products = Product::findOrFail($id);
-
-       // return view('front.product_details', compact('products'));
-      //$items=DB::table('products')->orderby('id','desc')->get();
 
 
         $Products = DB::table('products')->where('id',$id)->get();
-       return view('front.product_details', compact('Products','items'));
+        $reviews = DB::table('product_reviews')->where('product_id',$id)->get();
+        $reviewsCount = DB::table('product_reviews')->where('product_id',$id)->count();
+        $cartTotal = Cart::total();
+
+       return view('front.product_details', compact('Products','items','reviews','reviewsCount','cartTotal'));
 
 
-    //    $products = DB::table('products')->where('id',$id)->get();
 
 
    }
@@ -229,11 +195,12 @@ $items=Product::all();
        $wishList->pro_id = $request->pro_id;
 
        $wishList->save();
-       $items=Product::all();
+       return back();
+    //    $items=Product::all();
 
-       $Products = DB::table('products')->where('id', $request->pro_id)->get();
+    //    $Products = DB::table('products')->where('id', $request->pro_id)->get();
 
-       return view('front.product_details', compact('Products','items'));
+    //    return view('front.product_details', compact('Products','items'));
    }
 
    public function View_wishList() {
@@ -250,18 +217,12 @@ $items=Product::all();
    }
 
 
-   // public function shop()
-   // {
-   //     return view('front.shop');
-   // }
-
    public function contact()
    {
        return view('front.contact');
    }
 
   public function selectSize(Request $request) {
-       // echo $request->proDum; // see it in console
 
        $proDum = $request->proDum;
        $size = $request->size;

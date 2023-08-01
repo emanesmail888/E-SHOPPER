@@ -160,7 +160,7 @@
 
 
 
- <section class="mt-5 pt-5">
+ <section class="mt-5 pt-5 mb-4">
     <div class="container mt-5 pt-5">
         <div class="row">
 
@@ -207,7 +207,7 @@
 
 
 
-                        <div class="price-range mt-5">
+                        {{-- <div class="price-range mt-5">
                                    <h2>Price Range</h2>
                                     <div id="slider-range"></div>
                                     <br>
@@ -219,7 +219,7 @@
                                         <input size="2" type="text" id="amount_end" name="end_price" value="6000"
                                                style="border:0px; font-weight: bold; color:green" readonly="readonly"/></b>
 
-                        </div><!-- price-range -->
+                        </div><!-- price-range --> --}}
 
 
                         <div class="video mt-3 ">

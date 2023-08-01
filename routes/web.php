@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Routing\RouteGroup;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymentController;
 
 
 /*
@@ -39,14 +41,15 @@ Route::get('/about', function(){
 });
 
 
-// Route::get('/products', function (){
-//     return view('front/home');
-// });
-// Route::get('shop', 'HomeController@shop');
+
 Route::post('addToWishList', 'HomeController@wishList')->name('addToWishList');
 
 
 Route::get('/wishlist', 'HomeController@View_wishList');
+Route::post('product/{id}/review','ProductReviewController@store')->name('review.store');
+// Route::resource('/review','ProductReviewController');
+
+
 
 Route::get('/removeWishList/{id}', 'HomeController@removeWishList');
 Route::get('selectSize', 'HomeController@selectSize');
@@ -97,38 +100,33 @@ function(){
 });
 
 
-//  Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//  Route::post('fetch_data', [App\Http\Controllers\HomeController::class, 'fetch_data'])->name('fetch_data');;
-//  Route::get('fetch_data', [App\Http\Controllers\HomeController::class, 'fetch_data']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
  Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact us');
  Route::get('shop', [App\Http\Controllers\HomeController::class, 'shop'])->name('shop');
-//  Route::get('/range', [App\Http\Controllers\HomeController::class, 'index'])->name('range');
  Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
  Route::get('/products/filter/{id}', [App\Http\Controllers\HomeController::class, 'filter'])->name('filter');
  Route::get('/items/{id}', [App\Http\Controllers\HomeController::class, 'showProducts'])->name('showProducts');
- Route::get('/product_details/{id}', 'HomeController@product_details');
+ Route::get('/product_details/{id}', 'HomeController@product_details')->name('product_details');
  Route::get('/cart', 'CartController@index');
- //Route::post('add_to_cart', 'CartController@addItem');
 
- //Route::get('/cart/remove/{id}', 'CartController@destroy');
 
  Route::put('/cart/update/{id}', 'CartController@update');
 
- //Route::get('/cart/addItem/{id}', 'CartController@cartItem');
 Route::get('cart/addItem/{id}', 'CartController@addItem');
-//Route::get('/cart/addItem/{id}', 'HomeController@product_details');
+Route::get('cart/addItem2/{id}', 'CartController@addItem2');
 Route::get('/cart/remove/{id}','CartController@destroy');
 Route::post('search', ['as' => 'search', 'uses' => 'ProductsController@search']);
 Route::get('/products/{id}',  'HomeController@filter');
 
 Route::get('logout','\app\Http\Controllers\Auth\LoginController@logout');
-//Route::get('/checkout','CheckoutController@index');
-//Route::post('/formvalidate','CheckoutController@formValidate');
+// Route::post('/formvalidate','CheckoutController@formValidate');
 // Route::get('/thankyou', function() {
 //     return view('profile.thankyou');
 // });
-// Route::post('/get-product-price','ProductsController@getProductPrice');
+Route::get('/newArrival', 'HomeController@newArrival');
+
+ Route::post('/get_product_price','ProductsController@getProductPrice');
 
 Route::group(['middleware' => 'auth'], function() {
 
@@ -143,6 +141,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/updatePassword', 'ProfileController@updatePassword');
     Route::post('/updateAddress', 'ProfileController@updateAddress');
 
+ Route::get('EditProfileImage/{id}', 'ProfileController@ImageProfileForm')->name('ImageProfileForm');
+ Route::post('editProfileImage', 'ProfileController@editProfileImage')->name('editProfileImage');
+
     Route::get('/profile', function() {
         return view('profile.index');
     });
@@ -152,6 +153,19 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
 });
+
+
+// Route::post('pay', 'PaymentController@payWithpaypal')->name('pay');
+// Route::get('canceled', 'PaymentController@canceled')->name('canceled');
+// Route::get('status', 'PaymentController@status')->name('status');
+/* PayPal */
+Route::post('paypal/payment', [PaymentController::class, 'payment'])->name('paypal');
+Route::get('paypal/success', [PaymentController::class, 'success'])->name('paypal_success');
+Route::get('paypal/cancel', [PaymentController::class, 'cancel'])->name('paypal_cancel');
+// Route::post('pay', 'PaymentController@payWithpaypal')->name('pay');
+// Route::get('canceled', 'PaymentController@canceled')->name('canceled');
+// Route::get('status', 'PaymentController@status')->name('status');
+
 
 
 

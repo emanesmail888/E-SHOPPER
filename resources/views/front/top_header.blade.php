@@ -5,8 +5,8 @@
                         <div class="col-sm-6  " style="width: 60%;">
                             <div class="contactInfo w-auto">
                                 <ul class="nav nav-pills contact ">
-                                    <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i> +2 1003452188</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i> emanzidanelgmal@gmail.com</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -99,27 +99,30 @@
             <div class="tab-content">
               <div id="address" class="active tab-block">
 
+
+
+
                <form action="{{url('/')}}/formvalidate" method="post">
+                {{-- @csrf --}}
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="row">
                   <h1>Shopper Information</h1>
 
-
                     <div class="form-group col-md-6">
-                      <label for="firstname" class="form-label">Display Name</label>
+                      <label for="fullName" class="form-label">Display Name</label>
 
 
-                      <input id="firstname" type="text" name="fullname" placeholder="Display Name"  value="{{ old('firstname') }}" class="form-control">
+                      <input id="fullName" type="text" name="fullName" placeholder="Display Name"  value="{{ old('fullName') }}" class="form-control">
                       <br>
-                       <span style="color:red">{{ $errors->first('fullname') }}</span>
+                       <span style="color:red">{{ $errors->first('fullName') }}</span>
 
 
                     </div>
 
                      <div class="form-group col-md-6">
-                      <label for="lastname" class="form-label">State Name</label>
+                      <label for="state" class="form-label">State Name</label>
 
-                      <input id="lastname" type="text" name="state" placeholder="State Name" value="{{ old('state') }}" class="form-control">
+                      <input id="state" type="text" name="state" placeholder="State Name" value="{{ old('state') }}" class="form-control">
                       <br>
                       <span style="color:red">{{ $errors->first('state') }}</span>
                     </div>
@@ -128,11 +131,11 @@
 
 
                     <div class="form-group col-md-6">
-                      <label for="lastname" class="form-label">Pincode</label>
+                      <label for="pinCode" class="form-label">Pincode</label>
 
-                      <input id="lastname" type="text" name="pincode" placeholder="Pincode" value="{{ old('pincode') }}" class="form-control">
+                      <input id="pinCode" type="text" name="pinCode" placeholder="pinCode" value="{{ old('pinCode') }}" class="form-control">
                       <br>
-                      <span style="color:red">{{ $errors->first('pincode') }}</span>
+                      <span style="color:red">{{ $errors->first('pinCode') }}</span>
 
                     </div>
 
@@ -140,9 +143,9 @@
 
 
                         <div class="form-group col-md-6">
-                      <label for="lastname" class="form-label">City Name</label>
+                      <label for="city" class="form-label">City Name</label>
 
-                      <input id="lastname" type="text" name="city" placeholder="City Name" value="{{ old('city') }}" class="form-control">
+                      <input id="city" type="text" name="city" placeholder="City Name" value="{{ old('city') }}" class="form-control">
                       <br>
                        <span style="color:red">{{ $errors->first('city') }}</span>
 
@@ -153,6 +156,7 @@
 
                             <select name="country" class="form-control" >
                                 <option value="{{ old('country') }}" selected="selected">Select country</option>
+                                <option value="Egypt">Egypt</option>
                                 <option value="United States">United States</option>
                                 <option value="Bangladesh">Bangladesh</option>
                                 <option value="UK">UK</option>
@@ -164,15 +168,29 @@
                             </select>
                             <span style="color:red">{{ $errors->first('country') }}</span>
 
+            {{-- <div class="payment-options">
+            <span>
+                <input type="radio" name="pay" value="COD" checked="checked" id="cash"> COD
+
+            </span>
+            <span>
+                <input type="radio" name="pay" value="paypal" id="paypal"> PayPal
+                @include('front.paypal')
+            </span>
+
+            <span>
+            <input type="submit" value="COD" class="btn btn-primary" id="cashbtn">
+            </span>
+        </div> --}}
+
 
 
                        <span>
-                       <input type="radio" name="pay" value="COD" checked="checked"> COD
+                       <input type="radio" name="payment_type" value="COD" checked="checked"> COD
                           </span>
 
                         <span>
-                        <input type="radio" name="pay" value="paypal"> PayPal
-                         @include('front.paypal')
+                        <input type="radio" name="payment_type" value="paypal"> PayPal
                         </span>
 
 
@@ -188,6 +206,9 @@
 
                   </div>
                 </form>
+                <span>
+                     @include('front.paypal')
+                    </span>
 
 
                 <div class="CTAs d-flex justify-content-between flex-column flex-lg-row"><a href="cart.html" class="btn btn-template-outlined wide prev"> <i class="fa fa-angle-left"></i>Back to basket</a><a href="checkout2.html" class="btn btn-template wide next">Choose delivery method<i class="fa fa-angle-right"></i></a></div>

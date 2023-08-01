@@ -2,14 +2,11 @@
 
 @section('content')
 
-  <style>
-    table td { padding:10px
-    }</style>
-
-<canvas class="my-4 w-100"  width="100" height="15"></canvas>
 
 
-<section id="cart_items">
+<canvas class="my-1 w-100"  width="100" height="1"></canvas>
+
+
     <div class="container">
      <div class="row">
 
@@ -19,6 +16,11 @@
      <div class="col-md-8">
        <ol class="breadcrumb">
                 <li></li>
+                <img src="../uploads/avatars/{{ Auth::user()->avatar }}"  class=" rounded-circle mr-5  " style="width: 70px; height:70px;"  alt="">
+
+                <p><a href="{{route('ImageProfileForm',Auth::user()->id )}}"
+                 class="btn btn-info">Change Image</a>
+                  </p>
 
                   <table border="0" align="center">
                   <tr>
@@ -38,5 +40,5 @@
 </div>
 </div>
 
-</section>
+@endsection
 

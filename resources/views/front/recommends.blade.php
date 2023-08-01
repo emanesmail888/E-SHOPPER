@@ -1,6 +1,57 @@
+<div class="container">
+    <div class="row">
+                @forelse ($items as $item)
+                <div class="col-md-3">
+
+                <div class="card card1 ">
+                  <div class="card-body">
+                    <img src="{{url('images', $item->image)}}" class="card-img w-100  " alt="card image cap">
+
+                    <p class="card-text">{{$item->pro_name}}</p>
+                    <h2 id="price">
+                        @if($item->spl_price==0)
+                        ${{$item->pro_price}}
+                        @else
+                        <div class=" price">
+                      <span style="text-decoration:line-through; color:rgb(158, 32, 60)">
+                         ${{$item->pro_price}} </span>
+                         <img src="{{asset('dist/img/Sale-Free.png')}}" style="width:70px; height:40px;"/>
+                         ${{$item->spl_price}}
+                        @endif
+                    </div>
+
+                      </h2>
+
+                    <div class="btn-group-vertical d-block">
+                        <button type="button" class="btn   ">
+                            <a href="{{url('/product_details')}}/<?php echo $item->id; ?>"
+                                class="get  ">View Product</a>
+                        </button>
+
+                        <button type="button" class="btn mt-1  ">
+                            <a href="{{url('/cart/addItem')}}/<?php echo $item->id; ?>"
+                                class="get ">Add To Cart
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                        </button>
 
 
- <div class="container">
+                       </div>
+
+
+
+                  </div><!-- card-body -->
+                </div><!-- card -->
+            </div><!-- col-md-4 -->
+
+                @empty
+              <h3>No Products</h3>
+
+              @endforelse
+    </div><!-- row -->
+</div><!-- container -->
+
+ {{-- <div class="container">
     <div class="row">
         <div class="col-sm-2">
 
@@ -14,7 +65,7 @@
             <div class="carousel-inner bg-black">
                 @foreach($items as $key => $slider)
                 <div class="carousel-item w-100 {{$key == 0 ? 'active' : '' }}">
-                    <img src="{{url('images', $slider->image)}}" class="d-block w-50 h-50 bg-opacity-75"  alt="...">
+                    <img src="{{url('images', $slider->image)}}" class="d-block w-100 h-50 bg-opacity-75"  alt="...">
 
                     <div class="carousel-caption d-block text-white text-sm-right  ">
                     <h3>{{$slider->pro_name}}</h3>
@@ -38,7 +89,7 @@
     </div>
 
     </div><!-- row -->
-    </div><!-- container -->
+    </div><!-- container --> --}}
 
 
 

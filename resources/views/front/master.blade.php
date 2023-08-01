@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    {{-- <meta name="csrf-token" content="{{csrf_token()}}"> --}}
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.1.1">
     <title>Album example · Bootstrap</title>
@@ -49,7 +49,7 @@
     <link href="{{asset('dist/css/bootstrap.css.map')}}" rel="stylesheet">
     <link href="{{asset('dist/css/bootstrap-grid.min.css.map')}}" rel="stylesheet">
     <link href="{{asset('dist/css/bootstrap-reboot.min.css.map')}}" rel="stylesheet">
-    <link href="{{asset('dist/css/swiper-bundle.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('dist/css/swiper-bundle.min.css')}}" rel="stylesheet"> --}}
     <link href="{{asset('dist/css/slick.css')}}" rel="stylesheet">
   </head>
   <body>
@@ -63,15 +63,41 @@
 
 @yield('content')
 
-<footer class="text-muted">
-  <div class="container">
-    <p class="float-right">
-      <a href="#">Back to top</a>
-    </p>
-    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-  </div>
-</footer>
+
+    <footer class="mt-5 pb-0 mb-0">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-5 pt-3">
+                    <ul class="footer-nav">
+
+                        <li><a href="#">Back to top</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Shop </a></li>
+                        <li><a href="#">Menu </a></li>
+                        <li><a href="#">Wish List </a></li>
+                    </ul>
+                </div><!-- footer-nav -->
+                <div class="col-md-3 pt-3">
+                        <p>Copyright &copy by eman esmail</p>
+
+                </div>
+                <div class="col-md-4 pt-2">
+                    <ul class="social-nav">
+                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter "></i></a></li>
+                        <li><a href="#"><i class="fab fa-google"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+
+            </div><!-- row -->
+
+        </div><!-- container -->
+
+    </footer>
+
 
 
 {{-- <script src="{{asset('dist/js/vendor/jquery.min.js')}}"></script> --}}
@@ -106,7 +132,7 @@
 <script src="{{asset('dist/js/owl.carousel.js')}}"></script>
 
 <script src="{{asset('dist/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('dist/js/swiper-bundle.min.js')}}"></script>
+{{-- <script src="{{asset('dist/js/swiper-bundle.min.js')}}"></script> --}}
 <script src="{{asset('dist/js/slick.min.js')}}"></script>
 
 

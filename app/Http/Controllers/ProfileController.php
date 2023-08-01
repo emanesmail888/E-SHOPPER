@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Orders;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -29,7 +30,7 @@ class ProfileController extends Controller
 
     public function Address() {
         $user_id = Auth::user()->id;
-        $address_data = DB::table('address')->where('user_id', '=', $user_id)->orderby('id', 'DESC')->get();
+        $address_data = DB::table('address')->where('user_id', '=', $user_id)->get();
         return view('profile.address', compact('address_data'));
     }
 
@@ -70,6 +71,34 @@ class ProfileController extends Controller
             }
            // echo 'here update query for password';
         }
+
+        public function ImageProfileForm($id) {
+
+            $user = User::findOrFail($id);
+
+            return view('profile.ImageProfileForm', compact('user'));
+        }
+
+    public function editProfileImage(Request $request) {
+
+
+            $user_id = $request->id;
+
+
+            $image=$request->image;
+            if($image){
+                $imageName=$image->getClientOriginalName();
+                $image->move('images',$imageName);
+                $formInput['image']=$imageName;
+            }
+
+            DB::table('users')->where('id', $user_id)->update(['avatar' => $imageName]);
+
+
+            return redirect()->back();
+
+        }
+
 
 
 

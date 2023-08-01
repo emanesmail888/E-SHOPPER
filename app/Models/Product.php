@@ -27,4 +27,9 @@ class Product extends Model
     public function subCategories(){
         return $this->belongsTo(SubCategory::class);
     }
+
+
+    public function getReview(){
+        return $this->hasMany('App\Models\ProductReview','product_id','id')->with('user_info')->orderBy('id','DESC');
+    }
 }

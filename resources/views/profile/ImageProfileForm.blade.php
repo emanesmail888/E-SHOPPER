@@ -1,9 +1,9 @@
 
-@extends('admin.master')
+@extends('front.master')
 
 
 @section('content')
-<h1 class="pt-5 ">Update Product</h1>
+<h1 class="pt-5 ">Update Profile Picture</h1>
 
     <div class="row">
 
@@ -18,18 +18,18 @@
 
             <div class="col-md-6">
 
-                {!! Form::model($Products, [
+                {!! Form::model($user, [
                     'method' => 'post',
-                    'action' => ['ProductsController@editProImage', $Products->id],
+                    'action' => ['ProfileController@editProfileImage', $user->id],
                     'files' => true,
                 ]) !!}
 
 
-                <input type="hidden" name="id" class="form-control" value="{{ $Products->id }}">
+                <input type="hidden" name="id" class="form-control" value="{{ $user->id }}">
 
-                <input type="text" class="form-control" value="{{ $Products->pro_name }}" readonly="readonly">
+                <input type="text" class="form-control" value="{{ $user->name }}" readonly="readonly">
                 <br />
-                <img class="card-img-top img-fluid" src="{{ url('images', $Products->image) }}" width="150px"
+                <img class="card-img-top img-fluid" src="{{ url('uploads/avatars', $user->avatar) }}" width="150px"
                     alt="Card image cap" />
 
                 <br />

@@ -5,7 +5,7 @@
  @section('content')
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" async defer></script>
-  <script type="text/javascript">
+<script type="text/javascript">
 
    $(document).ready(function(){
      <?php for($i=1;$i<60;$i++){ ?>
@@ -50,7 +50,7 @@
 
      });
 
-     </script> //function
+</script>
 
 
   <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">

@@ -172,10 +172,6 @@ public function editProImage(Request $request) {
             $formInput['image']=$imageName;
         }
 
-
-
-
-
         DB::table('products')->where('id', $proid)->update(['image' => $imageName]);
 
 

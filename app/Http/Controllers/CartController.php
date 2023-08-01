@@ -18,15 +18,25 @@ class CartController extends Controller
         return view('cart.index', compact('cartItems'));
     }
 
-    // public function addItem($id) {
-         // echo $id;
-         // $product = Product::findOrFail($id);
-         // $products = products::find($id);
+    public function addItem2(Request $request, $id) {
+        // echo $id;
 
-         // Cart::add($id, $products->pro_name, 1, $products->pro_price);
-    //      Cart::add($id, $product->pro_name, 1, $product->pro_price, ['img' => $product->image, 'stock' => $product->stock]);
-    //       return back();
-    // }
+        $product = Product::find($id);
+
+        if(isset($request->newPrice))
+
+        {
+           $price = $request->newPrice; // if size selected
+        }
+
+        else{
+         $price = $product->pro_price; // default price
+        }
+        $quantity = $request->input('qty');
+        Cart::add($id, $product->pro_name, $quantity, $price, ['img' => $product->image, 'stock' => $product->stock]);
+         return back();
+   }
+
 
 
      public function addItem(Request $request, $id) {
@@ -43,12 +53,8 @@ class CartController extends Controller
          else{
           $price = $product->pro_price; // default price
          }
+         $quantity = $request->input('qty');
 
-
-
-         // $products = products::find($id);
-
-         // Cart::add($id, $products->pro_name, 1, $products->pro_price);
          Cart::add($id, $product->pro_name, 1, $price, ['img' => $product->image, 'stock' => $product->stock]);
           return back();
     }
@@ -66,18 +72,31 @@ class CartController extends Controller
 //     }
 
 
+public function update(Request $request,$rowId)
 
-public function  update(Request $request, $id){
+{
+     $cart = Cart::get($rowId);
 
- $qty = $request->qty;
-  $proId = $request->proId;
+    if(isset($request->qty))
 
-  $rowId = $request->id; // for update
+    {
+        $cart->qty = $request->qty;
+    }
 
-  Cart::update($rowId, $qty);
-  // $cartItems = Cart::update($rowId, $qty);
-  $cartItems = Cart::content();
-  return view('cart.upCart', compact('cartItems'))->with('status', 'cart updated');
+   return back()->with('success', 'Item quantity updated in your cart');
+
+}
+// public function  update(Request $request, $id){
+
+//  $qty = $request->qty;
+//   $proId = $request->proId;
+
+//   $rowId = $request->id; // for update
+
+//   Cart::update($rowId, $qty);
+//   // $cartItems = Cart::update($rowId, $qty);
+//   $cartItems = Cart::content();
+//   return view('cart.upCart', compact('cartItems'))->with('status', 'cart updated');
   // echo Cart::content(); // for display all new data of cart
 
 
@@ -97,4 +116,4 @@ public function  update(Request $request, $id){
   // }
 
   }
-}
+
