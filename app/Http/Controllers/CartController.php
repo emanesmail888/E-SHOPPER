@@ -15,7 +15,9 @@ class CartController extends Controller
     //
     public function index() {
         $cartItems = Cart::content();
-        return view('cart.index', compact('cartItems'));
+        $products = product::inRandomOrder()->limit(3)->get();
+
+        return view('cart.index', compact('cartItems','products'));
     }
 
     public function addItem2(Request $request, $id) {

@@ -3,9 +3,8 @@
 
 
 <main role="main">
-    <canvas class="my-4 w-100"  width="100" height="3"></canvas>
 
-<section id="dishes">
+<section id="products">
 
     <div class="album py-5 bg-light">
       <div class="container">
@@ -14,33 +13,47 @@
         <div class="row">
 @forelse ($products as $product)
 
-<div class="col-md-4 ">
-  <div class="card mb-4 shadow-sm">
+<div class="col-md-3 ">
+    <div class="card card1 ">
+        <div class="card-body">
+          <img src="{{url('images', $product->image)}}" class="card-img w-100  " alt="card image cap">
+
+          <p class="card-text">{{$product->pro_name}}</p>
+          <h2 id="price">
+              @if($product->spl_price==0)
+              ${{$product->pro_price}}
+              @else
+              <div class=" price">
+            <span style="text-decoration:line-through; color:rgb(158, 32, 60)">
+               ${{$product->pro_price}} </span>
+               <img src="{{asset('dist/img/Sale-Free.png')}}" style="width:70px; height:40px;"/>
+               ${{$product->spl_price}}
+              @endif
+          </div>
+
+            </h2>
+
+          <div class="btn-group-vertical d-block">
+              <button type="button" class="btn   ">
+                  <a href="{{url('/product_details')}}/<?php echo $product->id; ?>"
+                      class="get  ">View Product</a>
+              </button>
+
+              <button type="button" class="btn mt-1  ">
+                  <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>"
+                      class="get ">Add To Cart
+                      <i class="fa fa-shopping-cart"></i>
+                  </a>
+              </button>
 
 
-   <div class="card-body">
-      <img src="{{url('images', $product->image)}}" class="card-img-top " alt="card image cap">
+             </div>
 
-      <p class="card-text">{{$product->pro_name}}</p>
 
-      <div class="btn-group-vertical d-block">
-          <button type="button" class="btn   get ">
-              <a href="{{url('/product_details')}}/<?php echo $product->id; ?>"
-                  class=" text-white ">View product</a>
-          </button>
 
-          <button type="button" class="btn  mt-1 get  ">
-              <a href="#"
-                  class=" text-white">Add To Cart
-                  <i class="fa fa-shopping-cart"></i>
-              </a>
-          </button>
-
-         </div>
-
-    </div><!-- card-body -->
-  </div><!-- card -->
-</div><!-- col-md-4 -->
+        </div><!-- card-body -->
+      </div><!-- card -->
+</div><!-- col-md-3 -->
 @empty
 <h3>No Products Yet</h3>
 @endforelse

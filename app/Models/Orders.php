@@ -45,6 +45,23 @@ class Orders extends Model
         }
      }
 
+     public static function createPaypalOrder() {
+
+        // for order inserting to database
+
+           // echo 'order done';
+
+         $user=Auth::user();
+          $order =$user->orders()->create(['total' => Cart::total(), 'status' => 'approved']);
+
+         $cartItems = Cart::content();
+
+         foreach ($cartItems as $cartItem) {
+            $order->orderFields()->attach($cartItem->id, ['qty' => $cartItem->qty, 'tax' => Cart::tax(), 'total' => $cartItem->qty * $cartItem->price]);
+        }
+     }
+
+
 
 }
 

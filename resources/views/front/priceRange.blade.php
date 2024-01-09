@@ -103,7 +103,7 @@
         rows: 3,
      autoplay: true,
 
-responsive: [{
+   responsive: [{
     breakpoint: 1024,
       settings: {
         slidesToShow: 3,
@@ -129,7 +129,7 @@ responsive: [{
     // You can unslick at a given breakpoint now by adding:
     // settings: "unslick"
     // instead of a settings object
-  ],
+    ],
 
 
 

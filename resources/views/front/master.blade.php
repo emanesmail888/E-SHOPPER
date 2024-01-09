@@ -64,7 +64,7 @@
 @yield('content')
 
 
-    <footer class="mt-5 pb-0 mb-0">
+    <footer class="mt-5 pb-0 mb-0 ">
 
         <div class="container">
             <div class="row">

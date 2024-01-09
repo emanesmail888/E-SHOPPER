@@ -1,55 +1,78 @@
 @extends('front.master')
 
 @section('content')
+    <canvas class=" w-100" width="100" height="2"></canvas>
 
-<canvas class="my-4 w-100"  width="100" height="1"></canvas>
 
-
-<section>
-    <div class="container">
-        <div class="row">
-                    <h2 class=" text-center">
-                        <?php if (isset($msg)) {
+    <section class="mb-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <h2 class=" text-center">
+                    <?php if (isset($msg)) {
                             echo $msg;
                         } else { ?> WishList Item <?php } ?> </h2>
 
-                    <?php if ($Products->isEmpty()) { ?>
-                        sorry, products not found
-                  <?php } else { ?>
-                        @foreach($Products as $product)
-                        <div class="col-md-6">
-                                    <div class=" text-center">
-                                        <a href="{{url('/product_details')}}">
-                                           <img src="{{url('images',$product->image)}}" class="w-50 h-25" alt="" />
-                                        </a>
+                <?php if ($Products->isEmpty()) { ?>
+                sorry, Products not found
+                <?php } else { ?>
+                @foreach ($Products as $product)
+                    <div class="card card1 col-md-3 ">
+                        <div class="card-body">
+                            <img src="{{ url('images', $product->image) }}" class="card-img w-100  " alt="card image cap">
+
+                            <p class="card-text">{{ $product->pro_name }}</p>
+                            <h2 id="price">
+                                @if ($product->spl_price == 0)
+                                    ${{ $product->pro_price }}
+                                @else
+                                    <div class=" price p-3">
+                                        <span style="text-decoration:line-through; color:rgb(158, 32, 60)">
+                                            ${{ $product->pro_price }} </span>
+                                        <img src="{{ asset('dist/img/Sale-Free.png') }}" style="width:70px; height:40px;" />
+                                        ${{ $product->spl_price }}
                                     </div>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <h2>$<?php echo $product->pro_price; ?></h2>
+                                @endif
 
-                                        <p><a href="{{url('/product_details')}}"><?php echo $product->pro_name; ?></a></p>
-                                        <a href="{{url('/cart/addItem')}}/<?php echo $product->id; ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Move to cart</a>
+                                <a href="{{ url('/') }}/removeWishList/{{ $product->id }} ?>">
+                                    <i class="fa fa-trash fa-2x " style=" background-color:#ffff;color:brown;   "></i>
+                                </a>
 
-                            <a href="{{url('/')}}/removeWishList/{{$product->id}}" style="color:red" class="btn btn-default btn-block"><i class="fa fa-minus-square"></i>Remove from wishlist</a></li>
-                                    </div>
+                            </h2>
+
+                        <div class="btn-group-vertical d-block">
+                            <button type="button" class="btn">
+                                <a href="{{ url('/product_details') }}/<?php echo $product->id; ?>" class="get  ">
+                                    <i class="fas fa-eye "></i>View Product
+                                </a>
+                            </button>
+
+                            <button type="button" class="btn mt-1  ">
+                                <a href="{{ url('/cart/addItem') }}/<?php echo $product->id; ?>" class="get ">
+                                    <i class="fa fa-shopping-cart"></i>Add To Cart
+                                </a>
+                            </button>
+
+                            {{-- <button type="button" class="btn mt-1  "> --}}
+
+                            {{-- </button> --}}
+
+
+                        </div>
 
 
 
-                        @endforeach
-<?php } ?>
+                    </div><!-- card-body -->
+            </div><!-- card -->
+            @endforeach
+            <?php } ?>
 
 
-                </div>
-                <ul class="pagination">
-                    {{-- {{ $Products}} --}}
-                </ul>
+        </div>
+        <ul class="pagination">
+        </ul>
 
-    </div>
-</div>
-</section>
-
-
-
+        </div>
+        </div>
+    </section>
 @endsection
-

@@ -3,18 +3,13 @@
 <style>
     table td { padding:10px
     }</style>
-<br>
-<br>
-<br>
-<br>
 
-<canvas class="my-4 w-100"  width="100" height="3"></canvas>
 
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
+        <div class="breadcrumbs mt-2">
             <ol class="breadcrumb">
-                <li><a href="{{url('/profile')}}">Profile</a></li>
+                <li><a href="{{url('/profile')}}" style="color:#d6435b; text-decoration:none;">Profile / </a></li>
                 <li class="active  pl-2 text-bold">My Order</li>
             </ol>
         </div><!--/breadcrums-->

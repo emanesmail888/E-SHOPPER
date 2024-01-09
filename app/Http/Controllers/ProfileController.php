@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-//use App\Http\Controllers\Hash;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Orders;

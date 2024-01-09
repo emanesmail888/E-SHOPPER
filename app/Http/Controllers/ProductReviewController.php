@@ -44,8 +44,13 @@ class ProductReviewController extends Controller
 
         return back();
 
+    }
 
+    public function destroy($id)
+    {
+        DB::table('product_reviews')->where([ ['id' ,'=',  $id ],['user_id' , '=' ,Auth::user()->id]])->delete();
+        // ProductReview::findOrFail($id)->delete();
 
-
+        return redirect()->back();
     }
 }

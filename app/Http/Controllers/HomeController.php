@@ -43,22 +43,8 @@ class HomeController extends Controller
         $products=Product::paginate();
         $categories=Category::all();
         $subCategories=SubCategory::all();
-        // if($request->ajax() ){
-        //     $start= $request->get(  'start' );
-        //     $end= $request->get( 'end' );
 
 
-        //     $products = DB::table('products')->select('*')
-        //    ->where('pro_price', '>=',  $start)
-        //     ->where( 'pro_price' ,'<=',  $end)->orderBy('pro_price', 'ASC')->paginate();
-
-
-        //   return  view('front.range',compact(['products']));
-
-
-
-
-        // }
         return view('front.home',compact(['categories','products','subCategories']));
 
 
@@ -177,7 +163,7 @@ $items=Product::all()->random(4);
 
 
         $Products = DB::table('products')->where('id',$id)->get();
-        $reviews = DB::table('product_reviews')->where('product_id',$id)->get();
+        $reviews = DB::table('product_reviews')->where('product_id',$id)->paginate(10);
         $reviewsCount = DB::table('product_reviews')->where('product_id',$id)->count();
         $cartTotal = Cart::total();
 
@@ -196,16 +182,14 @@ $items=Product::all()->random(4);
 
        $wishList->save();
        return back();
-    //    $items=Product::all();
-
-    //    $Products = DB::table('products')->where('id', $request->pro_id)->get();
-
-    //    return view('front.product_details', compact('Products','items'));
+    
    }
 
    public function View_wishList() {
+    $Products = DB::table('wishlist')->where('user_id',Auth::user()->id)->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->get();
 
-       $Products = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->get();
+
+    //    $Products = DB::table('wishlist')->leftJoin('products', 'wishlist.pro_id', '=', 'products.id')->get();
        return view('front.wishList', compact('Products'));
    }
 
@@ -233,10 +217,10 @@ $items=Product::all()->random(4);
 
 
        foreach($s_price as $sPrice){
-           echo "US $ " .$sPrice->p_price;?>
+           echo "EGP P " .$sPrice->p_price;?>
 
             <input type="hidden" value="<?php echo $sPrice->p_price;?>" name="newPrice"/>
-            <div style="background:<?php echo $sPrice->color;?>; width:40px; height:40px"></div>
+            <div style="background:<?php echo $sPrice->color;?>; width:40px; height:25px; margin-right:20px;"></div>
             <?php
        }
    }

@@ -207,19 +207,6 @@
 
 
 
-                        {{-- <div class="price-range mt-5">
-                                   <h2>Price Range</h2>
-                                    <div id="slider-range"></div>
-                                    <br>
-                                    <b class="pull-left">$
-                                        <input size="2" type="text" id="amount_start" name="start_price"
-                                               value="100" style="border:0px; font-weight: bold; color:green" readonly="readonly" /></b>
-
-                                    <b class="pull-right">$
-                                        <input size="2" type="text" id="amount_end" name="end_price" value="6000"
-                                               style="border:0px; font-weight: bold; color:green" readonly="readonly"/></b>
-
-                        </div><!-- price-range --> --}}
 
 
                         <div class="video mt-3 ">

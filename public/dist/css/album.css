@@ -28,7 +28,8 @@ width: 100%;
 
 body{
     background-color: white;
-    position: relative;
+
+    /* position: relative; */
 }
 .header_top {
     background: none repeat scroll 0 0 #F0F0E9;
@@ -147,17 +148,23 @@ font-size: 17px;
 } */
 
 
+html{
+    min-height: 100%;
 
+    position:relative;
+}
 
 
 footer{
-    /* padding: 4px 0px; background-color: rgb(32, 80, 50); */
-    /* padding: 4px 0px; */
+
     background-color: rgb(221, 6, 71) ;
-    position: absolute;
-    /* bottom: 0px; */
     width: 100%;
-    padding: 0px 0px;
+    position:absolute;
+
+    bottom:0;
+
+
+
 
 }
 
@@ -947,7 +954,7 @@ display: inline-block;
 
           .category-tab ul {
             background: #f1f1e7;
-            border-bottom: 1px solid #f18f94;
+            border: 1px solid #f18f94;
             list-style: none outside none;
             margin: 0 0 30px;
             padding: 0;
@@ -970,8 +977,25 @@ display: inline-block;
               background:#d6435b;
               color:#fff;
           }
+          .category-tab ul  li  a .active{
+              background:#d6435b;
+              color:#fff;
+          }
+
 
           .nav-tabs  li.active  a, .nav-tabs  li.active  a:hover, .nav-tabs  li.active  a:focus {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            background-color: #d6435b;
+            border:0px;
+            color: #FFFFFF;
+            cursor: default;
+            margin-right:0;
+            margin-left:0;
+          }
+          .nav-tabs  li.active  a, .nav-tabs  li.active  a:hover, .nav-tabs  li  a.active {
             -moz-border-bottom-colors: none;
             -moz-border-left-colors: none;
             -moz-border-right-colors: none;
@@ -989,6 +1013,7 @@ display: inline-block;
             border-radius: 4px 4px 0 0;
             line-height: 1.42857;
             margin-right:20px;
+            padding: 2px 20px;
           }
 .shop-details-tab {
     border: 1px solid #F7F7F0;
@@ -1077,4 +1102,14 @@ display: inline-block;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
   }
+
+  .profile-nav a {
+    background:#FFFFFF;
+    color: #d6435b;
+}
+  .profile-nav a:hover {
+    color:#724242;
+    font-weight: bold;
+    text-decoration-color: #724242;
+}
 

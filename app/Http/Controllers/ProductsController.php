@@ -65,7 +65,7 @@ public function show($id)
     {
         $product = Product::findOrFail($id);
         // $blog = Blog::whereSlug($slug)->first();
-        return view('product.show', compact('products'));
+        return view('product.show', compact('product'));
         // var_dump($product);
     }
 
@@ -75,45 +75,18 @@ public function show($id)
         $Products = Product::findOrFail($id);
         $categories = Category::all();
 
-        $prots = products_properties::all();
+        $prots = DB::table('products_properties')->where('pro_id',$id)->get();
 
         return view('Admin.product.editProducts', compact('Products', 'categories','prots'));
     }
-//     public function filterPrice($start_price,$end_price){
-//         // $min_price=$_GET['start_price'];
-//         //  $max_price=$_GET['end_price'];
-//         // $start_price=$request->start_price;
-//         // $end_price=$request->end_price;
-//         // if($request->start_price && $request->end_price){
-//         //     // This will only execute if you received any price
-//         //     // Make you you validated the min and max price properly
-//         //     $query = $query->where('price','>=',$request->min_price);
-//         //     $query = $query->where('price','<=',$request->max_price);
-//         // }
-
-// $result= DB::table('products')
-//                 ->whereBetween('pro_price',[$start_price,$end_price])->get();
-
-
-//         //   $result =  "select * products where price BETWEEN '$start'' AND '$end' ";
-// // dd($result);
-//          return view('front.home',compact('result'));
-
-     // return view('front.home',compact('filters'));
-// }
-
 
 
   public function editProducts(Request $request, $id) {
 
 
-        // $pro_id = $reqeust->id;
          $Products = DB::table('products')->where('id', '=', $id)->get();
 
-       // $category = Category::findOrFail($id); // now we are fetching all products
 
-        // Product::findOrFail($id)->update($request->all());
-        //$products=Product::all();
 
 
         $proId = $request->id;
@@ -242,7 +215,7 @@ if($request->ajax()){
     $getProductPrice=products_properties::where(
         'pro_id' ,$request->product_id,
         'size' ,$request->size);
-        return$getProductPrice->p_price;
+        return $getProductPrice->p_price;
 
 }
  }

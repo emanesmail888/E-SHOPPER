@@ -24,7 +24,8 @@ use App\Http\Controllers\PaymentController;
 //Auth::routes();
 
 Route::get('/', function () {
-    return view('front/home');
+        return view('front/home');
+    
 });
 // Route::get('shop', function(){
 //     return view('front/shop');
@@ -47,15 +48,13 @@ Route::post('addToWishList', 'HomeController@wishList')->name('addToWishList');
 
 Route::get('/wishlist', 'HomeController@View_wishList');
 Route::post('product/{id}/review','ProductReviewController@store')->name('review.store');
-// Route::resource('/review','ProductReviewController');
+Route::get('review/remove/{id}','ProductReviewController@destroy')->name('review.destroy');
 
 
 
 Route::get('/removeWishList/{id}', 'HomeController@removeWishList');
 Route::get('selectSize', 'HomeController@selectSize');
-// Route::get('/shop','HomeController@shop')->name('shop');
 Auth::routes();
-// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'admin','middleware'=>['auth','admin']],
 function(){
@@ -155,17 +154,13 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 
-// Route::post('pay', 'PaymentController@payWithpaypal')->name('pay');
-// Route::get('canceled', 'PaymentController@canceled')->name('canceled');
-// Route::get('status', 'PaymentController@status')->name('status');
 /* PayPal */
-Route::post('paypal/payment', [PaymentController::class, 'payment'])->name('paypal');
-Route::get('paypal/success', [PaymentController::class, 'success'])->name('paypal_success');
-Route::get('paypal/cancel', [PaymentController::class, 'cancel'])->name('paypal_cancel');
-// Route::post('pay', 'PaymentController@payWithpaypal')->name('pay');
-// Route::get('canceled', 'PaymentController@canceled')->name('canceled');
-// Route::get('status', 'PaymentController@status')->name('status');
-
+// Route::post('paypal/payment', [PaymentController::class, 'payment'])->name('paypal');
+// Route::get('paypal/success', [PaymentController::class, 'success'])->name('paypal_success');
+// Route::get('paypal/cancel', [PaymentController::class, 'cancel'])->name('paypal_cancel');
+Route::post('paypal/payment', [App\Http\Controllers\PaymentController::class, 'payment'])->name('paypal');
+Route::get('paypal/success', [App\Http\Controllers\CheckoutController::class, 'success'])->name('paypal_success');
+Route::get('paypal/cancel', [App\Http\Controllers\CheckoutController::class, 'cancel'])->name('paypal_cancel');
 
 
 

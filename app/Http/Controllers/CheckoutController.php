@@ -9,6 +9,8 @@ use App\Models\Address;
 use App\Models\orders;
 use App\Models\Product;
 use App\Models\User;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
 
 
 class CheckoutController extends Controller
@@ -44,33 +46,7 @@ class CheckoutController extends Controller
 
 }
 
-// public function formvalidate(Request $request) {
-//     // $this-validate($request, ['fullname' => 'required|min:5|max:35,'],
-//     //         ['fullname.required'=>'enter full name']);
-//  $this->validate($request, [
-//      'fullname' => 'required|min:5|max:35',
-//      'pincode' => 'required|numeric',
-//      'city' => 'required|min:5|max:25',
-//      'state' => 'required|min:5|max:35',
-//      'country' => 'required']);
 
-
-//     $userid = Auth::user()->id;
-//      $address = new Address;
-//      $address->fullname = $request->fullname;
-//      $address->state = $request->state;
-//      $address->city = $request->city;
-//      $address->pincode = $request->pincode;
-//      $address->country = $request->country;
-//      $address->payment_type = $request->pay;
-//      $address->user_id = $userid;
-//      $address->save();
-//      // dd('done');
-//      orders::createOrder();
-
-//      Cart::destroy();
-//      return redirect('profile.thankyou');
-// }
 
 public function formValidate(Request $request) {
   $this->validate($request,[
@@ -81,7 +57,7 @@ public function formValidate(Request $request) {
      'country' => 'required',
      'payment_type' => 'required',
  ]);
-//      //dd($request->all());
+     //dd($request->all());
 
 
     $userId = Auth::user()->id;
@@ -98,15 +74,86 @@ if (!empty($user))
      $address->payment_type = $request->payment_type;
 
      $address->save();
-     // dd('done');
-     Orders::createOrder();
-    //  Cart::destroy();
 
 
-    //   Cart::remove($userId);
-    return redirect('profile.thankyou');
+
+     if( $address->payment_type=="COD"){
+        Orders::createOrder();
+        Cart::destroy();
+       return redirect('profile.thankyou');
+
+
+     }
+
+
+
+     if( $address->payment_type=="paypal")
+     {
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $paypalToken = $provider->getAccessToken();
+
+        $response = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('paypal_success'),
+                "cancel_url" => route('paypal_cancel')
+            ],
+            //  "order" => $order->id,
+
+            "purchase_units" => [
+                [
+                    "amount" => [
+                        "currency_code" => "USD",
+                        "value" => Cart::total()
+                    ]
+                ]
+            ]
+        ]);
+
+        //dd($response);
+
+        if(isset($response['id']) && $response['id']!=null) {
+            foreach($response['links'] as $link) {
+                if($link['rel'] === 'approve') {
+                    return redirect()->away($link['href']);
+                }
+            }
+        } else {
+            return redirect()->route('paypal_cancel');
+        }
+}
+}
+
+
+public function success(Request $request)
+{
+    $provider = new PayPalClient;
+    $provider->setApiCredentials(config('paypal'));
+    $paypalToken = $provider->getAccessToken();
+    $response = $provider->capturePaymentOrder($request->token);
+
+    //dd($response);
+
+    if(isset($response['status']) && $response['status'] == 'COMPLETED') {
+
+        $userId = Auth::user()->id;
+        $order= Orders::createPaypalOrder();
+        Cart::destroy();
+
+        return redirect('profile.thankyou')->with('success', 'Payment is successful Order Reserved! ');
+
+    } else {
+        return redirect()->route('paypal_cancel');
+    }
+}
+
+public function cancel()
+{
+    return "Payment is cancelled!";
+}
 }
 
 
 
-}
+

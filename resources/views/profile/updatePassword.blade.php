@@ -4,17 +4,12 @@
     table td { padding:10px
     }</style>
 
-<br>
-<br>
-<br>
-<br>
-<canvas class="my-4 w-100"  width="100" height="3"></canvas>
 
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
+        <div class="breadcrumbs mt-2">
             <ol class="breadcrumb">
-                <li><a href="{{url('/profile')}}">Profile</a></li>
+                <li><a href="{{url('/profile')}}" style="color:#d6435b; text-decoration:none;">Profile / </a></li>
                 <li class="active pl-2 text-bold">Update Password</li>
             </ol>
         </div><!--/breadcrums-->
@@ -51,9 +46,9 @@
                             <span style="color:red">{{ $errors->first('newPassword') }}</span>
                         </div>
 
-                        <div class="form-group col-md-6" align="right">
+                        <div class="form-group col-md-12  mt-3" >
 
-                            <input type="submit" value="Update" class="btn btn-primary">
+                        <button class=" btn d-block text-white mx-auto px-3 " style="background-color: #d6435b;">Update Password</button>
 
                         </div>
 

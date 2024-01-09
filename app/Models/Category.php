@@ -22,17 +22,10 @@ public function subCategories()
     // return $this->hasMany('App\SubCategories','foreign_key_column_name');
 
 
-return $this->hasMany(subCategory::class,'category_id');
+ return $this->hasMany(SubCategory::class,'category_id');
 }
 
-// public function products()
-// {
-// return $this->hasMany('App\product1', 'id_subcategory');}
-// }
 
-// public function blogs(){
-//     return $this->hasMany('App\Models\Blog');
-// }
     public function products(){
         return $this->hasMany(Product::class);
     }

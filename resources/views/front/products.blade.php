@@ -2,11 +2,11 @@
 @section('content')
 
 
-<main role="main">
-    {{-- <canvas class="my-4 w-100"  width="100" height="3"></canvas> --}}
+<main role="main ">
+    {{-- <canvas class="my-2 w-100"  width="100" height="3"></canvas> --}}
 
-<section class="mt-5">
-    <div class="container ">
+<section class="mt-5 mb-5 pb-5">
+    <div class="container  ">
         <div class="row">
 
             <div class="col-sm-3">
